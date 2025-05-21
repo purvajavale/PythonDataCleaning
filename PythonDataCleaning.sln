@@ -1,0 +1,27 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 25.0.1706.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{565882C2-7E48-46E1-B67C-6B7ED2930D47}"
+	ProjectSection(SolutionItems) = preProject
+		DataCleaning.py = DataCleaning.py
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Data", "Data", "{50E95C1E-5DB0-4502-B876-06DD5817A2C6}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {8419A826-90D4-4E82-AA03-FC0BF915E319}
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{50E95C1E-5DB0-4502-B876-06DD5817A2C6} = {565882C2-7E48-46E1-B67C-6B7ED2930D47}
+	EndGlobalSection
+EndGlobal
