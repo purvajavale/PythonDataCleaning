@@ -99,11 +99,11 @@ class DataCleaner:
 
 # ---- Main method ----
 def main():
-    bucket = "your-bucket-name"  # <-- Change this
-    s3_input_key = "input-data/raw_data.csv"  # <-- Change this
+    bucket = "bucket-name"  # 
+    s3_input_key = "input-data/raw_data.csv"  # 
     local_input_path = "/tmp/raw_data.csv"
     local_output_path = "/tmp/cleaned_data.csv"
-    s3_output_key = "processed-data/cleaned_data.csv"  # <-- Change this
+    s3_output_key = "processed-data/cleaned_data.csv"  # 
 
     try:
         uploader = S3Uploader(bucket)
