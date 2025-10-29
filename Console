@@ -1,0 +1,32 @@
+Downloaded s3://your-bucket/input-data/raw_data.csv to /tmp/raw_data.csv
+Loading data from /tmp/raw_data.csv
+Removed 10 rows with missing values.
+Removed 3 duplicate rows.
+Removed 4 outlier rows.
+Converted 'date' column to datetime.
+Standardized string columns.
+Scaled numeric columns.
+
+Data Validation Summary:
+Total rows: 983
+Total columns: 6
+
+Missing values per column:
+age        0
+income     0
+city       2
+dtype: int64
+
+Data Profiling Summary:
+         count unique   mean   std   min   max
+age       983     -    35.2   8.3  18.0  64.0
+income    983     -  56000.0 7800 40000 75000
+city      981   120      -     -     -     -
+
+Anomaly Detection:
+age: 2 anomalies detected.
+income: 3 anomalies detected.
+
+Saved cleaned data to /tmp/cleaned_data.csv
+Uploaded /tmp/cleaned_data.csv to s3://your-bucket/processed-data/cleaned_data.csv
+Data cleaning, validation, and upload completed successfully.
