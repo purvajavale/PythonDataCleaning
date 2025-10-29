@@ -33,13 +33,13 @@ class CSVDataLoader(DataLoader):
         self.file_path = file_path
 
     def load(self):
-        print(f"📥 Loading data from {self.file_path}")
+        print(f" Loading data from {self.file_path}")
         return pd.read_csv(self.file_path)
 
 class CSVDataSaver(DataSaver):
     def save(self, df: pd.DataFrame, path: str):
         df.to_csv(path, index=False)
-        print(f"💾 Saved cleaned data to {path}")
+        print(f" Saved cleaned data to {path}")
 
 class S3Uploader(StorageUploader):
     def __init__(self, bucket_name):
@@ -49,16 +49,16 @@ class S3Uploader(StorageUploader):
     def upload_file(self, file_path: str, key: str) -> str:
         try:
             self.s3.upload_file(file_path, self.bucket_name, key)
-            return f"✅ Uploaded {file_path} to s3://{self.bucket_name}/{key}"
+            return f" Uploaded {file_path} to s3://{self.bucket_name}/{key}"
         except NoCredentialsError:
-            return "❌ AWS credentials not available."
+            return " AWS credentials not available."
 
     def download_file(self, key: str, download_path: str) -> str:
         try:
             self.s3.download_file(self.bucket_name, key, download_path)
-            return f"✅ Downloaded s3://{self.bucket_name}/{key} to {download_path}"
+            return f" Downloaded s3://{self.bucket_name}/{key} to {download_path}"
         except NoCredentialsError:
-            return "❌ AWS credentials not available."
+            return " AWS credentials not available."
 
 
 # ---- Data Cleaning & Quality Framework ----
@@ -69,13 +69,13 @@ class DataCleaner:
     def handle_missing(self):
         before = len(self.df)
         self.df = self.df.dropna()
-        print(f"🧹 Removed {before - len(self.df)} rows with missing values.")
+        print(f" Removed {before - len(self.df)} rows with missing values.")
         return self
 
     def remove_duplicates(self):
         before = len(self.df)
         self.df = self.df.drop_duplicates()
-        print(f"🔁 Removed {before - len(self.df)} duplicate rows.")
+        print(f" Removed {before - len(self.df)} duplicate rows.")
         return self
 
     def remove_outliers(self, z_thresh=3):
@@ -83,20 +83,20 @@ class DataCleaner:
         before = len(self.df)
         z_scores = np.abs((self.df[numeric_cols] - self.df[numeric_cols].mean()) / self.df[numeric_cols].std())
         self.df = self.df[(z_scores < z_thresh).all(axis=1)]
-        print(f"⚠️ Removed {before - len(self.df)} outlier rows.")
+        print(f" Removed {before - len(self.df)} outlier rows.")
         return self
 
     def correct_data_types(self):
         if 'date' in self.df.columns:
             self.df['date'] = pd.to_datetime(self.df['date'], errors='coerce')
-            print("📅 Converted 'date' column to datetime.")
+            print(" Converted 'date' column to datetime.")
         return self
 
     def standardize_strings(self):
         str_cols = self.df.select_dtypes(include='object').columns
         for col in str_cols:
             self.df[col] = self.df[col].str.lower().str.strip()
-        print("🔤 Standardized string columns.")
+        print(" Standardized string columns.")
         return self
 
     def scale_numeric(self):
@@ -104,11 +104,11 @@ class DataCleaner:
         if not numeric_cols.empty:
             scaler = StandardScaler()
             self.df[numeric_cols] = scaler.fit_transform(self.df[numeric_cols])
-            print("📏 Scaled numeric columns.")
+            print(" Scaled numeric columns.")
         return self
 
     def validate_data(self):
-        print("\n✅ Data Validation Summary:")
+        print("\n Data Validation Summary:")
         print(f"Total rows: {len(self.df)}")
         print(f"Total columns: {len(self.df.columns)}")
         print("Columns:", list(self.df.columns))
@@ -118,13 +118,13 @@ class DataCleaner:
         return self
 
     def profile_data(self):
-        print("\n📊 Data Profiling Summary:")
+        print("\n Data Profiling Summary:")
         desc = self.df.describe(include='all').transpose()
         print(desc[['count', 'unique', 'mean', 'std', 'min', 'max']].fillna('-'))
         return self
 
     def detect_anomalies(self, z_thresh=3):
-        print("\n🚨 Anomaly Detection:")
+        print("\n Anomaly Detection:")
         numeric_cols = self.df.select_dtypes(include=[np.number]).columns
         for col in numeric_cols:
             z_scores = np.abs((self.df[col] - self.df[col].mean()) / self.df[col].std())
@@ -170,10 +170,10 @@ def main():
         saver.save(cleaned_df, local_output_path)
 
         print(uploader.upload_file(local_output_path, s3_output_key))
-        print("\n🎉 Data cleaning, validation, and upload completed successfully.")
+        print("\n Data cleaning, validation, and upload completed successfully.")
 
     except Exception as e:
-        print(f"❌ An error occurred: {e}")
+        print(f" An error occurred: {e}")
 
 
 if __name__ == "__main__":
